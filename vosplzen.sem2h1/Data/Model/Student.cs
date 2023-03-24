@@ -10,6 +10,5 @@ namespace vosplzen.sem2h1.Data.Model
         public string Name { get; set; }
         [Required]
         public string Surname { get; set; }
-
     }
 }
