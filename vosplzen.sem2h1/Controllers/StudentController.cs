@@ -85,7 +85,7 @@ namespace vosplzen.sem2h1.Controllers
                   ExternalId = studentDto._id
                 }
                 );
-                _context.Students.Add(student);
+               
                 
             }
             
