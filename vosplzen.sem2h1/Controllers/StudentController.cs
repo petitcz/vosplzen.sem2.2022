@@ -58,11 +58,13 @@ namespace vosplzen.sem2h1.Controllers
         [Route("Add")]
         public IActionResult PostStudents(List<StudentDto> studentsDto)
         {
-            
+            StudentResponseDto responseDto = new StudentResponseDto();
+            responseDto.Result = new List<StudentResponseIdPairDto>();
             foreach (var studentDto in studentsDto)
             {
                 if (_context.Students.Any(x => x.ExternalId == studentDto._id))
                 {
+                    responseDto.Failed++;
                     continue;
                 }
                 var student = new Student()
@@ -73,12 +75,21 @@ namespace vosplzen.sem2h1.Controllers
                     Email = studentDto.email,
                     ExternalId = studentDto._id
                 };
-                
+                responseDto.Success++;
+
+                _context.Students.Add(student);
+                _context.SaveChanges();
+
+                responseDto.Result.Add(new StudentResponseIdPairDto(){
+                  InternalId = student.Id,
+                  ExternalId = studentDto._id
+                }
+                );
                 _context.Students.Add(student);
                 
             }
-            _context.SaveChanges();
-            return Ok();
+            
+            return Ok(responseDto);
         }
 
     }
