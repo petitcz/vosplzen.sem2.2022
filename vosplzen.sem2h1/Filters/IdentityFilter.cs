@@ -34,7 +34,6 @@ namespace vosplzen.sem2h1.Filters
 
                 var result = _identityService.TokenisValid(token.Value.ToString());
 
-
                 if(!result)              
                 {
                     context.Result = new ContentResult()

@@ -5,7 +5,7 @@ using vosplzen.sem2h1.Services.Interfaces;
 namespace vosplzen.sem2h1.Services
 {
 
-    public class MasterSeedService:IMasterSeedService
+    public class MasterSeedService : IMasterSeedService
     {
         internal ApplicationDbContext _context;
 
@@ -16,6 +16,22 @@ namespace vosplzen.sem2h1.Services
 
         public void InitSeed()
         {
+
+            if (!_context.IdentityTokens.Any())
+            {
+                _context.IdentityTokens.Add(new Data.Model.IdentityToken()
+                {
+                    Title = "Test Validation Token",
+                    Token = "12345",
+                    ValidTo = DateTime.Now.AddMonths(12)
+                   
+                });
+
+
+                _context.SaveChanges();
+
+            }
+
             if (!_context.Students.Any())
             {
                 _context.Students.Add(new Data.Model.Student()
