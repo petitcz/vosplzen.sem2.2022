@@ -24,7 +24,7 @@ internal class Program
               options.UseSqlServer(
                   builder.Configuration.GetConnectionString("DefaultConnection")));
 
-        builder.Services.AddScoped<IdentityFilter>();
+        builder.Services.AddScoped<IIdentityService, IdentityService>();
         builder.Services.AddScoped<IStudentService, StudentService>();
         builder.Services.AddScoped<IMasterSeedService, MasterSeedService>();
 

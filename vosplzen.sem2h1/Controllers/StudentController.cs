@@ -23,6 +23,7 @@ namespace vosplzen.sem2h1.Controllers
             _studentservice = studentservice;
         }
 
+        [IdentityFilter]
         [HttpGet]
         [Route("List")]
         public IActionResult Getlist()

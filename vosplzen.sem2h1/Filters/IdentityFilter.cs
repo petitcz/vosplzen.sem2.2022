@@ -35,14 +35,7 @@ namespace vosplzen.sem2h1.Filters
                 var result = _identityService.TokenisValid(token.Value.ToString());
 
 
-                if(result)
-                {
-                    context.Result = new ContentResult()
-                    {
-                        StatusCode = (int)HttpStatusCode.OK
-                    };
-                }
-                else
+                if(!result)              
                 {
                     context.Result = new ContentResult()
                     {
