@@ -1,6 +1,7 @@
 ﻿using MethodTimer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Microsoft.Identity.Client;
 using vosplzen.sem2h1.Data;
 using vosplzen.sem2h1.Data.Dto;
@@ -18,10 +19,12 @@ namespace vosplzen.sem2h1.Controllers
     {
         IStudentService _studentservice;
         IMasterSeedService _masterseedservice;
-        public StudentController(IStudentService studentservice, IMasterSeedService masterseedservice)
+        ILogger<StudentController> _log;
+        public StudentController(IStudentService studentservice, IMasterSeedService masterseedservice, ILogger<StudentController> log) 
         {
             _masterseedservice = masterseedservice;
             _studentservice = studentservice;
+            _log = log;
         }
 
 
@@ -30,6 +33,9 @@ namespace vosplzen.sem2h1.Controllers
     [Route("Seed")]
     public IActionResult Seed()
     {
+
+            _log.LogInformation("Seed method has been called");
+
             _masterseedservice.InitSeed();
              return Ok();
     }
