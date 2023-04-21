@@ -1,9 +1,12 @@
 ﻿using MethodTimer;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 using vosplzen.sem2h1.Data;
 using vosplzen.sem2h1.Data.Dto;
 using vosplzen.sem2h1.Data.Model;
+using vosplzen.sem2h1.Filters;
+using vosplzen.sem2h1.Services.Interfaces;
 
 namespace vosplzen.sem2h1.Controllers
 {
@@ -12,85 +15,29 @@ namespace vosplzen.sem2h1.Controllers
     [Route("Students")]
     public class StudentController : Controller
     {
-
-        private ApplicationDbContext _context;
-
-        public StudentController(ApplicationDbContext context) {
-
-            _context = context;
+        IStudentService _studentservice;
+        public StudentController(IStudentService studentservice)
+        {
+            _studentservice = studentservice;
         }
-        
+
         [HttpGet]
         [Route("List")]
         public IActionResult Getlist()
         {
-
-            var result = _context.Students.ToList();
-            return new JsonResult(result);
+            return new JsonResult(_studentservice.GetList());
+         
         }
 
-        [HttpGet]
-        [Route("First")]
-        public IActionResult GetFirst()
-        {
 
-            var result = _context.Students.FirstOrDefault();
-            return new JsonResult(result);
-        }
-
-        [HttpGet]
-        [Route("Top")]
-        public IActionResult GetTop(int topCount, string? orderBy = "surname") {
-            
-            if(topCount <= 0) { return BadRequest(); }
-
-            if (orderBy == "name")
-            {
-                return new JsonResult(_context.Students.Take(topCount).OrderBy(x => x.Name).ToList());
-            }
-            else {
-
-                return new JsonResult(_context.Students.Take(topCount).OrderBy(x => x.Surname).ToList());
-            }
-        }
+        [IdentityFilter]
         [Time]
         [HttpPost]
         [Route("Add")]
         public IActionResult PostStudents(List<StudentDto> studentsDto)
         {
-            StudentResponseDto responseDto = new StudentResponseDto();
-            responseDto.Result = new List<StudentResponseIdPairDto>();
-            foreach (var studentDto in studentsDto)
-            {
-                if (_context.Students.Any(x => x.ExternalId == studentDto._id))
-                {
-                    responseDto.Failed++;
-                    continue;
-                }
-                var student = new Student()
-                {
-                    About = studentDto.about,
-                    Name = studentDto.name.Split(' ')[0],
-                    Surname = studentDto.name.Split(" ")[1],
-                    Email = studentDto.email,
-                    ExternalId = studentDto._id
-                };
-                responseDto.Success++;
-
-                _context.Students.Add(student);
-                _context.SaveChanges();
-
-                responseDto.Result.Add(new StudentResponseIdPairDto(){
-                  InternalId = student.Id,
-                  ExternalId = studentDto._id
-                }
-                );
-               
-                
-            }
-            
-            return Ok(responseDto);
+            return Ok(_studentservice.AddStudents(studentsDto));
         }
-
     }
+
 }

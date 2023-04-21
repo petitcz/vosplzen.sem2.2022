@@ -6,6 +6,7 @@ namespace vosplzen.sem2h1.Data.Model
     {
         [Key]
         public int Id { get; set; }
+
         [Required]
         public string Name { get; set; }
         [Required]

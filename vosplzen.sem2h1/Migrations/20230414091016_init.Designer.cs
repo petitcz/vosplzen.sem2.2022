@@ -12,8 +12,8 @@ using vosplzen.sem2h1.Data;
 namespace vosplzen.sem2h1.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230331081125_Ukol1")]
-    partial class Ukol1
+    [Migration("20230414091016_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,32 @@ namespace vosplzen.sem2h1.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("vosplzen.sem2h1.Data.Model.IdentityToken", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasMaxLength(360)
+                        .HasColumnType("nvarchar(360)");
+
+                    b.Property<DateTime>("ValidTo")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("IdentityTokens");
+                });
 
             modelBuilder.Entity("vosplzen.sem2h1.Data.Model.Student", b =>
                 {
@@ -41,8 +67,9 @@ namespace vosplzen.sem2h1.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("ExternalId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("ExternalId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()

@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using vosplzen.sem2h1.Data;
+using vosplzen.sem2h1.Filters;
+using vosplzen.sem2h1.Services;
+using vosplzen.sem2h1.Services.Interfaces;
 
 internal class Program
 {
@@ -18,6 +21,8 @@ internal class Program
               options.UseSqlServer(
                   builder.Configuration.GetConnectionString("DefaultConnection")));
 
+        builder.Services.AddScoped<IdentityFilter>();
+        builder.Services.AddScoped<IStudentService, StudentService>();
 
         var app = builder.Build();
 
