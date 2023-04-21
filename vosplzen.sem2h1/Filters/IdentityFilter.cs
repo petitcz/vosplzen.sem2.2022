@@ -46,7 +46,7 @@ namespace vosplzen.sem2h1.Filters
                 {
                     context.Result = new ContentResult()
                     {
-                        StatusCode = (int)HttpStatusCode.InternalServerError
+                        StatusCode = (int)HttpStatusCode.Unauthorized
                     };
 
                 }

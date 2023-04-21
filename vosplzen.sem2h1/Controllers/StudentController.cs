@@ -16,8 +16,10 @@ namespace vosplzen.sem2h1.Controllers
     public class StudentController : Controller
     {
         IStudentService _studentservice;
-        public StudentController(IStudentService studentservice)
+        public StudentController(IStudentService studentservice, IMasterSeedService masterseedservice)
         {
+            masterseedservice.InitSeed();
+
             _studentservice = studentservice;
         }
 

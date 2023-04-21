@@ -1,6 +1,9 @@
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using vosplzen.sem2h1.Data;
 using vosplzen.sem2h1.Filters;
+using vosplzen.sem2h1.Migrations;
 using vosplzen.sem2h1.Services;
 using vosplzen.sem2h1.Services.Interfaces;
 
@@ -23,6 +26,8 @@ internal class Program
 
         builder.Services.AddScoped<IdentityFilter>();
         builder.Services.AddScoped<IStudentService, StudentService>();
+        builder.Services.AddScoped<IMasterSeedService, MasterSeedService>();
+
 
         var app = builder.Build();
 
@@ -41,4 +46,7 @@ internal class Program
 
         app.Run();
     }
+
+
+
 }

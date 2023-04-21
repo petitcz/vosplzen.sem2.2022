@@ -7,7 +7,7 @@ using vosplzen.sem2h1.Services.Interfaces;
 namespace vosplzen.sem2h1.Services
 {
 
-    public class StudentService: MasterService, IStudentService
+    public class StudentService: MasterSeedService, IStudentService
     {
         public StudentService(ApplicationDbContext context):base(context)
         {

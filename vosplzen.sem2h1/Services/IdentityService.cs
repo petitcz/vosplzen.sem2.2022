@@ -10,7 +10,7 @@ using vosplzen.sem2h1.Services.Interfaces;
 namespace vosplzen.sem2h1.Services
 {
 
-    public class IdentityService : MasterService, IIdentityService
+    public class IdentityService : MasterSeedService, IIdentityService
     {
         public IdentityService(ApplicationDbContext context) : base(context)
         {
