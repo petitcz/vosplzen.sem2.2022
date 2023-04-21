@@ -29,7 +29,7 @@ namespace vosplzen.sem2h1.Filters
                 _identityService = (IIdentityService)service;
 
                 var token = context.HttpContext.Request.Headers
-                    .Where(x => x.Key == "Security-Identifer"
+                    .Where(x => x.Key == "Security-Identifier"
                     ).FirstOrDefault();
 
                 var result = _identityService.TokenisValid(token.Value.ToString());
