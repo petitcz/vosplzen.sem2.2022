@@ -1,14 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.33328.57
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33414.496
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "vosplzen.sem2h1", "vosplzen.sem2h1\vosplzen.sem2h1.csproj", "{1C471613-66EF-4454-ABF8-C278CFA4EDF5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_dataExamples", "_dataExamples", "{FFDBA1C6-A519-4CF8-8242-0F8D9912A746}"
 	ProjectSection(SolutionItems) = preProject
 		_DataExamples\sem2-dbcreate.sql = _DataExamples\sem2-dbcreate.sql
-		_DataExamples\sem2_clientdataexample.txt = _DataExamples\sem2_clientdataexample.txt
+		_DataExamples\sem2_clientdataexample.json = _DataExamples\sem2_clientdataexample.json
 	EndProjectSection
 EndProject
 Global
